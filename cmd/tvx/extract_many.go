@@ -13,11 +13,12 @@ import (
 	"github.com/fatih/color"
 	"github.com/filecoin-project/go-state-types/abi"
 	"github.com/filecoin-project/go-state-types/exitcode"
-	"github.com/filecoin-project/lotus/chain/consensus/filcns"
 	"github.com/hashicorp/go-multierror"
 	"github.com/ipfs/go-cid"
 	"github.com/multiformats/go-multihash"
 	"github.com/urfave/cli/v2"
+
+	"github.com/filecoin-project/lotus/chain/consensus/filcns"
 )
 
 var extractManyFlags struct {
@@ -176,7 +177,7 @@ func runExtractMany(c *cli.Context) error {
 		// Vector filename, using a base of outdir.
 		file := filepath.Join(outdir, actorcodename, methodname, exitcodename, id) + ".json"
 
-		log.Println(color.YellowString("processing message cid with 'sender' precursor mode: %s", id))
+		log.Println(color.YellowString("processing message cid with 'participnts' precursor mode: %s", id))
 
 		opts := extractOpts{
 			id:        id,
@@ -185,7 +186,7 @@ func runExtractMany(c *cli.Context) error {
 			cid:       mcid,
 			file:      file,
 			retain:    "accessed-cids",
-			precursor: PrecursorSelectSender,
+			precursor: PrecursorSelectParticipants,
 		}
 
 		if err := doExtractMessage(opts); err != nil {
